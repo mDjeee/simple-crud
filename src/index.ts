@@ -1,4 +1,4 @@
-import dotenv from 'dotenv-safe';
+import dotenv from 'dotenv';
 import add from './add';
 
 dotenv.config();
