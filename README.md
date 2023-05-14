@@ -29,7 +29,7 @@ To check application first of all run command `npm install` and:
 - [x] **+10** Production mode: `npm` script `start:prod` implemented properly
 
 ## Hacker Scope
-- [ ] **+30** There are tests for API (not less than **3** scenarios)
+- [ ] **+30** There are tests for API (not less than **3** scenarios) *Not implemented*
 - [x] **+50** There is horizontal scaling for application with a **load balancer**
 
 ## Forfeits
