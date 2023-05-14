@@ -1,4 +1,5 @@
 # simple-crud
+**Rename *.env.example* file to *.env***
 To check application first of all run command `npm install` and:
  - To run application in development mode run `npm run start:dev`
  - If you want start production mode you need to run `npm run start:prod`
