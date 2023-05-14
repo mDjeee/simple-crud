@@ -1,7 +1,10 @@
 import http, { IncomingMessage, Server, ServerResponse } from 'http';
 import { routes } from './router';
+import * as dotenv from 'dotenv';
 
-function handleRequest (req: IncomingMessage, res: ServerResponse) {
+dotenv.config();
+
+export function handleRequest (req: IncomingMessage, res: ServerResponse) {
   const { method, url } = req;
   const { pathname } = new URL(url || '', `http://${req.headers.host}`);
 
