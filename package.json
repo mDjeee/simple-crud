@@ -9,6 +9,7 @@
   "scripts": {
     "start:dev": "nodemon",
     "start:prod": "npm run build && node -r ts-node/register/transpile-only --es-module-specifier-resolution=node -r tsconfig-paths/register ./dist/src/index.js",
+    "start:multi": "ts-node ./src/multi.ts",
     "build": "tsc -p tsconfig.prod.json",
     "test": "jest",
     "test:watch": "jest --watch",
