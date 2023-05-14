@@ -9,11 +9,9 @@ let workerId = 0;
 
 if (cluster.isPrimary) {
   const server = http.createServer((req, res) => {
-    // Pick a worker to handle the request
     workerId = workerId < 8 ? workerId+1 : 1;
     const worker = getWorker(workerId);
     if (worker) {
-      // Send the request to the worker
       const requestOptions = {
         host: 'localhost',
         port: 4000 + worker.id,
@@ -22,7 +20,6 @@ if (cluster.isPrimary) {
         headers: req.headers,
       };
       const proxyReq = http.request(requestOptions, (proxyRes: any) => {
-        // Forward the response from the worker to the client
         res.writeHead(proxyRes.statusCode, proxyRes.headers);
         proxyRes.pipe(res);
       });
@@ -35,13 +32,9 @@ if (cluster.isPrimary) {
   server.listen(PORT, () => {
     console.log(`Load balancer listening on port ${PORT}`);
   });
-
-  // Fork worker processes
   for (let i = 1; i <= cpusCount; i++) {
     cluster.fork();
   }
-
-  // Listen for messages from workers
   cluster.on('message', (worker, message) => {
     console.log(`Received message from worker ${worker.id}: ${message}`);
   });
@@ -63,7 +56,6 @@ if (cluster.isPrimary) {
     }
   }
 } else {
-  // Create a TCP server for each worker to listen on a different port
   const workerId = Number(cluster?.worker?.id);
 
   const server = http.createServer(handleRequest);
@@ -71,8 +63,6 @@ if (cluster.isPrimary) {
   server.listen(4000 + workerId, () => {
     console.log(`Worker ${workerId} listening on port ${4000 + workerId}`);
   });
-
-  // Send a message to the master process
   if(process && process.send) {
     process.send(`Worker ${workerId} is ready`);
   }
